@@ -40,5 +40,5 @@ for episode in range(episodes):
 
     print(f"Episode {episode + 1}, Total Reward: {total_reward}")
 
-    if (episode + 1) % 10 == 0:
-        agent.save(f"./checkpoints/qdqn_model_{episode + 1}.keras")
+    # Save every episode result
+    agent.save(f"./checkpoints/qdqn_model_{episode + 1}.keras")
