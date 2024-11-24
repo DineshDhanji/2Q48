@@ -9,23 +9,24 @@ n_actions = 4  # 'w', 'a', 's', 'd'
 n_layers = 3
 batch_size = 32
 episodes = 100
-# episodes = 10  # Just for checking whether the code runs without errors
+episode_num = 4  # Last episode number from checkpoints/
 
 # Ensure the directory exists
 Path("./checkpoints").mkdir(parents=True, exist_ok=True)
 
 # Initialize agent and environment
 agent = QuantumDQNAgent(
-    n_qubits=n_qubits, n_actions=n_actions, n_layers=n_layers, batch_size=32
+    n_qubits=n_qubits, n_actions=n_actions, n_layers=n_layers, batch_size=batch_size
 )
-print("Random weights", agent.model.get_weights())
-agent.load(model_path="./checkpoints/qdqn_model_4.keras")
-
-print("Loaded weights", agent.model.get_weights())
 env = Grid(size=4)
 
+# Load latest weights
+print("Random weights", agent.model.get_weights())
+agent.load(model_path=f"./checkpoints/qdqn_model_{episode_num}.keras")
+print("Loaded weights", agent.model.get_weights())
+
 # Training loop
-for episode in range(episodes):
+for episode in range(episode_num + 1, episodes):
     # state = np.random.random(n_qubits)  # Flatten and normalize state
     state = env.reset()
     total_reward = 0
