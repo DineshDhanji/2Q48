@@ -9,6 +9,7 @@ n_qubits = 16  # Number of qubits (state space size)
 n_actions = 4  # 'w', 'a', 's', 'd'
 n_layers = 3
 batch_size = 32
+episode_num = 4  # Last episode number from checkpoints/
 
 # Initialize the environment and agent
 env = Grid(size=4)
@@ -17,7 +18,7 @@ agent = QuantumDQNAgent(
 )
 
 # Load the trained model
-model_path = "./checkpoints/qdqn_model_4.keras"  # Provide the path to your saved model
+model_path = f"./checkpoints/qdqn_model_{episode_num}.keras"  # Provide the path to your saved model
 agent.load(model_path)
 
 # Test the agent by playing the game
