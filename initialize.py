@@ -18,6 +18,10 @@ Path("./checkpoints").mkdir(parents=True, exist_ok=True)
 agent = QuantumDQNAgent(
     n_qubits=n_qubits, n_actions=n_actions, n_layers=n_layers, batch_size=32
 )
+print("Random weights", agent.model.get_weights())
+agent.load(model_path="./checkpoints/qdqn_model_4.keras")
+
+print("Loaded weights", agent.model.get_weights())
 env = Grid(size=4)
 
 # Training loop
