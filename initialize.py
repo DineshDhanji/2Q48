@@ -11,6 +11,12 @@ batch_size = 32
 episodes = 100
 episode_num = 4  # Last episode number from checkpoints/
 
+# Enable GPUs 
+# gpus = tf.config.list_physical_devices('GPU')
+# tf.config.set_visible_devices(gpus[0], 'GPU')
+# tf.config.experimental.set_memory_growth(gpus[0], True)
+# tf.debugging.set_log_device_placement(True)
+
 # Ensure the directory exists
 Path("./checkpoints").mkdir(parents=True, exist_ok=True)
 
