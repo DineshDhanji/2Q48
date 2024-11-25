@@ -3,7 +3,7 @@ import copy
 import pygame as pg
 
 
-class Grid:
+class Base_2048:
     def __init__(self, size):
         self.size = size
         self.grid = [[0 for _ in range(size)] for _ in range(size)]
@@ -360,7 +360,7 @@ class Grid:
         return next_state, reward, done
 
 
-game = Grid(4)
+game = Base_2048(4)
 while True:
     game.render()
     if game.is_full():
