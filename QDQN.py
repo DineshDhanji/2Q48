@@ -89,6 +89,7 @@ class QuantumDQNAgent:
         else:
             # Choose action based on Q-values from the network (exploitation)
             q_values = self.model.predict(np.expand_dims(state_flat, axis=0))[0]
+            print("Q-values", q_values)  
             return np.argmax(q_values)
 
     def replay(self):
