@@ -9,7 +9,7 @@ n_actions = 4  # 'w', 'a', 's', 'd'
 n_layers = 3
 batch_size = 32
 episodes = 100
-episode_num = 4  # Last episode number from checkpoints/
+episode_num = 6  # Last episode number from checkpoints/
 
 # Enable GPUs 
 # gpus = tf.config.list_physical_devices('GPU')

@@ -9,7 +9,7 @@ n_qubits = 16  # Number of qubits (state space size)
 n_actions = 4  # 'w', 'a', 's', 'd'
 n_layers = 3
 batch_size = 32
-episode_num = 4  # Last episode number from checkpoints/
+episode_num = 6  # Last episode number from checkpoints/
 
 # Initialize the environment and agent
 env = Grid(size=4)
