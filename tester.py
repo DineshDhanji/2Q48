@@ -18,7 +18,7 @@ agent = QuantumDQNAgent(
 )
 
 # Load the trained model
-model_path = f"./checkpoints/qdqn_model_{episode_num}.keras"  # Provide the path to your saved model
+model_path = f"./checkpoints/qdqn_weights_{episode_num}.keras"  # Provide the path to your saved model
 agent.load(model_path)
 
 # Test the agent by playing the game
