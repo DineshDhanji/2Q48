@@ -2,19 +2,21 @@ from QDQN import QuantumDQNAgent
 from grid import Grid
 import numpy as np
 from pathlib import Path
+import tensorflow as tf
 
 # Hyperparameters
 n_qubits = 16  # Number of qubits (state space size)
 n_actions = 4  # 'w', 'a', 's', 'd'
 n_layers = 3
-batch_size = 32
+batch_size = 64
 episodes = 100
 episode_num = 6  # Last episode number from checkpoints/
+max_steps_per_episode = 200
 
 # Enable GPUs 
-# gpus = tf.config.list_physical_devices('GPU')
-# tf.config.set_visible_devices(gpus[0], 'GPU')
-# tf.config.experimental.set_memory_growth(gpus[0], True)
+gpus = tf.config.list_physical_devices('GPU')
+tf.config.set_visible_devices(gpus[0], 'GPU')
+tf.config.experimental.set_memory_growth(gpus[0], True)
 # tf.debugging.set_log_device_placement(True)
 
 # Ensure the directory exists
@@ -28,7 +30,7 @@ env = Grid(size=4)
 
 # Load latest weights
 print("Random weights", agent.model.get_weights())
-agent.load(model_path=f"./checkpoints/qdqn_model_{episode_num}.keras")
+agent.load(model_path=f"./checkpoints/qdqn_weights_{episode_num}.keras")
 print("Loaded weights", agent.model.get_weights())
 
 # Training loop
@@ -37,19 +39,22 @@ for episode in range(episode_num + 1, episodes):
     state = env.reset()
     total_reward = 0
     done = False
-
-    while not done:
+    steps = 0
+    
+    while not done and steps < max_steps_per_episode:
         action = agent.choose_action(state)
         next_state, reward, done = env.step(action)
         agent.remember(state, action, reward, next_state, done)
 
         state = next_state
         total_reward += reward
-        env.render()
+        steps += 1
 
-        agent.replay()
+        if steps % 5 == 0:  # Replay less frequently
+            agent.replay()
+        env.render()
 
     print(f"Episode {episode + 1}, Total Reward: {total_reward}")
 
     # Save every episode result
-    agent.save(f"./checkpoints/qdqn_model_{episode + 1}.keras")
+    agent.save(f"./checkpoints/qdqn_weights_{episode + 1}.keras")
