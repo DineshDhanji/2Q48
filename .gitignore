@@ -44,3 +44,7 @@ venv/
 ENV/
 env.bak/
 venv.bak/
+
+# Temp files
+*temp.py
+2x2*/
